@@ -48,14 +48,15 @@ const sketch = (
   p5.draw = () => {
     p5.background(0);
     // TODO: Can we remove font by checking p5.textFont()?
-    if ((!earth.ready || !iss.ready) && font)
-      return p5.text("Loading...", 0, 0);
+    if (!earth.ready || !iss.ready) {
+      if (font) p5.text("Loading...", 0, 0);
+    } else {
+      rotateFromMouse(p5);
 
-    rotateFromMouse(p5);
-
-    sun.draw();
-    earth.draw();
-    iss.draw();
+      sun.draw();
+      earth.draw();
+      iss.draw();
+    }
   };
 };
 

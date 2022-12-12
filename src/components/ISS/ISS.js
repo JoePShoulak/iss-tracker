@@ -18,7 +18,9 @@ class ISS {
     p5,
     size
   ) {
-    p5.loadModel(issModel, model => (this.model = model));
+    p5.loadModel(issModel, model => {
+      this.model = model;
+    });
 
     this.p5 = p5;
     this.lat = undefined;

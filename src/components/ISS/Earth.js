@@ -6,17 +6,16 @@ class Earth {
     p5,
     size
   ) {
-    p5.loadImage(earthImageFile, img => (this.texture = img));
+    p5.loadImage(earthImageFile, img => {
+      this.texture = img;
+    });
 
     this.p5 = p5;
     this.size = size;
-
-    this.color = p5.color("blue");
-    this.texture = undefined;
   }
 
   get ready() {
-    return this.texture !== undefined;
+    return this.texture;
   }
 
   draw() {
