@@ -51,6 +51,11 @@ const sketch = (
       (p5.width !== props.width || p5.height !== props.height)
     ) {
       p5.resizeCanvas(props.width, props.height);
+
+      const constraint = p5.min(p5.height, p5.width) / 4;
+
+      earth = new Earth(p5, constraint);
+      iss = new ISS(p5, constraint);
     }
   };
 

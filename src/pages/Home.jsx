@@ -1,15 +1,30 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
+// import Link from "@mui/material/Link";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import Container from "@mui/material/Container";
 import ISS from "../components/ISS/ISS-Visualizer";
-import { Box, Card, CardContent, CardHeader, Grid, Paper } from "@mui/material";
+import { Card, CardContent, CardHeader, Grid } from "@mui/material";
 
-function HomeContent() {
+export default function Home() {
+  const [iss, setISS] = useState();
+  const issAPI = "https://api.wheretheiss.at/v1/satellites/25544";
+
+  const getISS = async () => {
+    const res = await fetch(issAPI);
+    const data = await res.json();
+    setISS(data);
+    console.log(data);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(getISS, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <React.Fragment>
       <GlobalStyles
@@ -25,7 +40,7 @@ function HomeContent() {
           <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
             ISS Tracker
           </Typography>
-          <nav>
+          {/* <nav>
             <Link
               variant="button"
               color="text.primary"
@@ -33,7 +48,7 @@ function HomeContent() {
               sx={{ my: 1, mx: 1.5 }}>
               About
             </Link>
-          </nav>
+          </nav> */}
         </Toolbar>
       </AppBar>
       {/* Hero unit */}
@@ -60,36 +75,39 @@ function HomeContent() {
         </Typography>
       </Container>
       {/* End hero unit */}
-      <Paper style={{ padding: 30, margin: 30, minWidth: "350px" }}>
-        <Grid
-          container
-          spacing={5}
-          direction="row"
-          justify="space-between"
-          alignItems="center">
-          <Grid item sm={12} md={9} lg={7}>
-            <Box>
-              <ISS width={600} height={600} />
-            </Box>
-          </Grid>
-
-          <Grid item xs={12} lg={5}>
-            <Card>
-              <CardHeader>ISS Data</CardHeader>
-              <CardContent>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non
-                inventore rerum soluta pariatur molestias omnis adipisci vitae
-                tempore ea unde, nobis velit ipsum doloribus vero ab ipsa,
-                minima dolore eaque.
-              </CardContent>
-            </Card>
-          </Grid>
+      <Grid
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justifyContent="center">
+        <Grid item>
+          <ISS iss={iss} width={600} height={600} />
         </Grid>
-      </Paper>
+        <Grid item style={{ width: 600, paddingTop: 10 }}>
+          <Card>
+            <CardHeader title="ISS Data" />
+            <CardContent>
+              {iss && (
+                <ul>
+                  <li>{`Name: ${iss.name}`}</li>
+                  <li>{`NORAD ID: ${iss.id}`}</li>
+                  <li>{`Timestamp: ${iss.timestamp}`}</li>
+                  <li>{`Velocity: ${iss.velocity}`}</li>
+                  <li>{`Visibility: ${iss.visibility}`}</li>
+                  <li>{`Latitude: ${iss.latitude}`}</li>
+                  <li>{`Longitude: ${iss.longitude}`}</li>
+                  <li>{`Solar Latitude: ${iss.latitude}`}</li>
+                  <li>{`Solar Longitude: ${iss.longitude}`}</li>
+                  <li>{`Daynum: ${iss.daynum}`}</li>
+                  <li>{`Footprint: ${iss.footprint}`}</li>
+                  <li>{`Units: ${iss.units}`}</li>
+                </ul>
+              )}
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
     </React.Fragment>
   );
-}
-
-export default function Home() {
-  return <HomeContent />;
 }
