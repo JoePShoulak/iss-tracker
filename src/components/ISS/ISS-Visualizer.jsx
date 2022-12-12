@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ReactP5Wrapper } from "react-p5-wrapper";
 import sketch from "./sketch";
 
-const ISS = () => {
+const ISS = ({ width, height }) => {
   const [iss, setISS] = useState();
   const issAPI = "https://api.wheretheiss.at/v1/satellites/25544";
 
@@ -17,7 +17,9 @@ const ISS = () => {
     return () => clearInterval(interval);
   }, []);
 
-  return <ReactP5Wrapper sketch={sketch} iss={iss} />;
+  return (
+    <ReactP5Wrapper sketch={sketch} iss={iss} width={width} height={height} />
+  );
 };
 
 export default ISS;

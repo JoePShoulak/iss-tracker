@@ -43,7 +43,16 @@ const sketch = (
     };
   };
 
-  p5.updateWithProps = props => (props.iss ? iss.setData(props.iss) : null);
+  p5.updateWithProps = props => {
+    if (props.iss) iss.setData(props.iss);
+    if (
+      props.width &&
+      props.height &&
+      (p5.width !== props.width || p5.height !== props.height)
+    ) {
+      p5.resizeCanvas(props.width, props.height);
+    }
+  };
 
   p5.draw = () => {
     p5.background(0);

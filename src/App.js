@@ -1,8 +1,12 @@
 import React from "react";
-import ISS from "./components/ISS/ISS-Visualizer";
+// import ISS from "./components/ISS/ISS-Visualizer";
+import Home from "./pages/Home";
 
 const App = () => {
-  return <ISS />;
+  return (
+    // <ISS />
+    <Home />
+  );
 };
 
 export default App;
