@@ -7,7 +7,38 @@ import Typography from "@mui/material/Typography";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import Container from "@mui/material/Container";
 import ISS from "../components/ISS/ISS-Visualizer";
-import { Card, CardContent, CardHeader, Grid } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  Grid,
+  Link,
+  List,
+  ListItem,
+} from "@mui/material";
+
+const capitalize = string =>
+  string.includes(" ")
+    ? string.split(" ").map(capitalize).join(" ")
+    : string[0].toUpperCase() + string.substring(1);
+
+const formatDataTitle = key =>
+  capitalize(
+    key
+      .replace("_", " ")
+      .replace(/lat$/, "latitude")
+      .replace(/lon$/, "longitude")
+      .replace("id", "id (NORAD)")
+  );
+
+const TechLink = ({ name, link }) => (
+  <>
+    {" "}
+    <Link href={link} target="_blank">
+      {name}
+    </Link>{" "}
+  </>
+);
 
 export default function Home() {
   const [iss, setISS] = useState();
@@ -17,7 +48,6 @@ export default function Home() {
     const res = await fetch(issAPI);
     const data = await res.json();
     setISS(data);
-    console.log(data);
   };
 
   useEffect(() => {
@@ -88,22 +118,47 @@ export default function Home() {
           <Card>
             <CardHeader title="ISS Data" />
             <CardContent>
-              {iss && (
-                <ul>
-                  <li>{`Name: ${iss.name}`}</li>
-                  <li>{`NORAD ID: ${iss.id}`}</li>
-                  <li>{`Timestamp: ${iss.timestamp}`}</li>
-                  <li>{`Velocity: ${iss.velocity}`}</li>
-                  <li>{`Visibility: ${iss.visibility}`}</li>
-                  <li>{`Latitude: ${iss.latitude}`}</li>
-                  <li>{`Longitude: ${iss.longitude}`}</li>
-                  <li>{`Solar Latitude: ${iss.latitude}`}</li>
-                  <li>{`Solar Longitude: ${iss.longitude}`}</li>
-                  <li>{`Daynum: ${iss.daynum}`}</li>
-                  <li>{`Footprint: ${iss.footprint}`}</li>
-                  <li>{`Units: ${iss.units}`}</li>
-                </ul>
+              {iss ? (
+                <List>
+                  {Object.entries(iss).map(([key, value]) => {
+                    key = formatDataTitle(key);
+                    return <ListItem key={key}>{`${key}: ${value}`}</ListItem>;
+                  })}
+                </List>
+              ) : (
+                "Loading..."
               )}
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item style={{ width: 600, paddingTop: 10 }}>
+          <Card>
+            <CardHeader title="Technologies" />
+            <CardContent>
+              <List>
+                <ListItem>
+                  <Typography>
+                    ISS location found using the
+                    <TechLink
+                      name="WTIA"
+                      link="https://wheretheiss.at/w/developer"
+                    />
+                    API
+                  </Typography>
+                </ListItem>
+                <ListItem>
+                  <Typography>
+                    Visual powered by
+                    <TechLink name="p5" link="https://p5js.org" />
+                  </Typography>
+                </ListItem>
+                <ListItem>
+                  <Typography>
+                    Site running on
+                    <TechLink name="React" link="https://reactjs.org" />
+                  </Typography>
+                </ListItem>
+              </List>
             </CardContent>
           </Card>
         </Grid>
