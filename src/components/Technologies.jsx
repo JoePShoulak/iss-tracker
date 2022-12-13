@@ -17,30 +17,37 @@ const TechLink = ({ name, link }) => (
   </>
 );
 
+const TechItem = ({ children }) => (
+  <ListItem>
+    <Typography>{children}</Typography>
+  </ListItem>
+);
+
 const Technologies = () => (
   <Card>
     <CardHeader title="Technologies" />
     <CardContent>
       <List>
-        <ListItem>
-          <Typography>
-            ISS location found using the
-            <TechLink name="WTIA" link="https://wheretheiss.at/w/developer" />
-            API
-          </Typography>
-        </ListItem>
-        <ListItem>
-          <Typography>
-            Visual powered by
-            <TechLink name="p5" link="https://p5js.org" />
-          </Typography>
-        </ListItem>
-        <ListItem>
-          <Typography>
-            Site running on
-            <TechLink name="React" link="https://reactjs.org" />
-          </Typography>
-        </ListItem>
+        <TechItem>
+          ISS location found using the
+          <TechLink name="WTIA" link="https://wheretheiss.at/w/developer" />
+          API
+        </TechItem>
+        <TechItem>
+          Visual powered by
+          <TechLink name="p5" link="https://p5js.org" />
+        </TechItem>
+        <TechItem>
+          Site running on
+          <TechLink name="React" link="https://reactjs.org" />
+        </TechItem>
+        <TechItem>
+          React and p5 integrated using
+          <TechLink
+            name="react-p5-wrapper"
+            link="https://www.npmjs.com/package/react-p5-wrapper"
+          />
+        </TechItem>
       </List>
     </CardContent>
   </Card>
