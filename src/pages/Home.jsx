@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
+import { Grid } from "@mui/material";
 
 import AppBar from "../components/AppBar";
 import Hero from "../components/Hero";
@@ -7,9 +8,7 @@ import ISS from "../components/ISS/Visualizer/Visualizer";
 import Data from "../components/ISS/Data";
 import Tech from "../components/Technologies";
 
-import { Grid } from "@mui/material";
-
-export default function Home() {
+const Home = () => {
   const [iss, setISS] = useState();
   const issAPI = "https://api.wheretheiss.at/v1/satellites/25544";
 
@@ -52,4 +51,6 @@ export default function Home() {
       </Grid>
     </>
   );
-}
+};
+
+export default Home;
