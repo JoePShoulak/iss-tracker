@@ -1,4 +1,4 @@
-import issModel from "../../models/iss.obj";
+import issModel from "../../../../models/iss.obj";
 
 const latLongToCartesian = (radius, lat, lon) => {
   lat *= (2 * Math.PI) / 360;

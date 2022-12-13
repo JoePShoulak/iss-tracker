@@ -1,4 +1,4 @@
-import earthImageFile from "../../images/earth.jpg";
+import earthImageFile from "../../../../images/earth.jpg";
 
 class Earth {
   constructor(

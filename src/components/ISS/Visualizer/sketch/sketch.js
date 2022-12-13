@@ -1,6 +1,6 @@
 import Earth from "./Earth";
 import ISS from "./ISS";
-import Roboto from "../../fonts/Roboto-Regular.ttf";
+import Roboto from "../../../../fonts/Roboto-Regular.ttf";
 
 const sketch = (
   /** @type {import("p5").p5InstanceExtensions} */
